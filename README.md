@@ -89,7 +89,8 @@ These models analyze motion sequences to detect abnormal posture transitions and
 
 * Kotlin
 * Android Jetpack
-* Camera API
+* CameraX
+* mediapipe
 * Firebase Cloud Messaging (FCM)
 
 ### Backend
@@ -126,11 +127,13 @@ fall-detection-system
 
 # My Contributions
 
-* Designed Android application architecture
-* Implemented **Monitoring Mode and Guardian Mode**
-* Integrated **Firebase Cloud Messaging for real-time notifications**
-* Implemented camera-based motion monitoring
-* Implemented fall event handling and UI workflow
+* Researched fall detection approaches and proposed a **GRU-based sequence model** after reviewing related research papers
+* Conducted initial model experiments using **TensorFlow** to evaluate GRU performance
+* Designed and implemented the **Android application**
+* Developed the **Monitoring Mode** for continuous motion monitoring
+* Developed the **Guardian Mode** for receiving fall alerts and viewing recorded events
+* Integrated **Firebase Cloud Messaging (FCM)** for real-time notifications
+* Assisted with notification-related client-server communication
 
 ---
 
