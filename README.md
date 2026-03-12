@@ -1,14 +1,142 @@
-### 11월 18일 전체 코드 다시 올림
+# Fall Detection Monitoring System
 
+An **Android-based fall detection and guardian notification system** designed to monitor elderly individuals and provide real-time alerts when a fall is detected.
 
-본인이 안드로이드에서 실행시 공기계 연결 필수, 애뮬레이터 사용시 알림화면만 사용 가능, 모니터링모드는 안드로이드에서 제공하는 화면이 나올 것
+The system continuously observes motion through a mobile device camera and sends an alert with a recorded video clip to a guardian when a fall event occurs.
 
-!현재 DB연결 위해 알림화면 일부 사용 불가 
+---
 
-----
+# Overview
 
-골격데이터가 실시간 서버로 가는 것을 확인하고싶다면 아래 부분들을 본인 테스트서버 IP주소로 바꾸세요.
+Falls are one of the most serious risks for elderly individuals living alone.
+This project implements a **mobile-based monitoring system** that detects fall events and notifies a guardian in real time.
 
-seniorguard.network.SkeletonNetwork.kt 12번째줄 http://테스트서버IP쓰세요:8000/
+The system is composed of two application modes:
 
-res.xml.network-security-config.xml파일 4번째줄 <domain includeSubdomains="true">테스트 서버 IP로 바꾸세요</domain>
+* **Monitoring Mode** – installed on the elderly person's device
+* **Guardian Mode** – installed on the guardian's smartphone
+
+---
+
+# System Architecture
+
+Monitoring Device (Android)
+→ Motion Monitoring
+→ FastAPI Server (AI Inference)
+→ Firebase Cloud Messaging (FCM)
+→ Guardian Device Notification
+
+The backend server runs AI inference using trained PyTorch models to determine whether a fall has occurred.
+
+---
+
+# Key Features
+
+## Monitoring Mode (Elderly Device)
+
+* Continuous camera-based motion monitoring
+* Fall detection event trigger
+* Automatic recording of **15 seconds after fall detection**
+* Sends motion data to backend server for AI analysis
+
+---
+
+## Guardian Mode
+
+* Real-time **push notifications via Firebase Cloud Messaging**
+* Receives fall alerts immediately
+* Displays **15-second video clip after fall detection**
+* Provides a history of fall events
+
+---
+
+# Notification Flow
+
+1. Monitoring device observes user motion.
+2. Motion data is sent to the backend server.
+3. AI models analyze the motion sequence.
+4. If a fall is detected:
+
+   * A push notification is sent to the guardian
+   * A 15-second video clip is delivered.
+
+---
+
+# AI Model
+
+The fall detection system uses **PyTorch-based sequence models** to analyze motion patterns.
+
+### Model Architecture
+
+Input Motion Sequence
+→ Bidirectional GRU
+→ Attention Layer
+→ Fully Connected Layers
+→ Binary Classification (Fall / Normal)
+
+### Model Files
+
+* `best_gru_model.pth`
+* `best_impact_model.pth`
+
+These models analyze motion sequences to detect abnormal posture transitions and impact events.
+
+---
+
+# Tech Stack
+
+### Mobile
+
+* Kotlin
+* Android Jetpack
+* Camera API
+* Firebase Cloud Messaging (FCM)
+
+### Backend
+
+* Python
+* FastAPI
+* PyTorch
+
+### Machine Learning
+
+* PyTorch
+* GRU-based Sequence Model
+
+---
+
+# Project Structure
+
+```
+fall-detection-system
+│
+├ android-app
+│
+├ docs
+│   ├ architecture.png
+│   └ demo.gif
+│
+├ ai-model
+│   └ model_description.md
+│
+└ README.md
+```
+
+---
+
+# My Contributions
+
+* Designed Android application architecture
+* Implemented **Monitoring Mode and Guardian Mode**
+* Integrated **Firebase Cloud Messaging for real-time notifications**
+* Implemented camera-based motion monitoring
+* Implemented fall event handling and UI workflow
+
+---
+
+# Future Improvements
+
+* User authentication system
+* Multi-guardian support
+* Cloud video storage
+* Improved fall detection accuracy
